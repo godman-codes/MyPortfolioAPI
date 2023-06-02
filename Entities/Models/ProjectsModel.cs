@@ -1,20 +1,27 @@
-﻿using System.ComponentModel.DataAnnotations;
-
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entities.Models
 {
-    public class Projects : EntityBase<Guid>
+    public class ProjectsModel : EntityBase
     {
-        public Projects() : base()
+        public ProjectsModel() : base()
         {
 
         }
+        [Required]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
+        [Column("ProjectId")]
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public UrlAttribute GitHubLink { get; set; }
-        public UrlAttribute ProductionLink { get; set;  }
-        public Guid OwnerId { get; set; }
-        public User Owner { get; set; }
-        public ICollection<ProjectTechnologies> ProjectTechnologies { get; set; }
+        public string GitHubLink { get; set; }
+        public string ProductionLink { get; set; }
+        [ForeignKey(nameof(UserModel))]
+        public string OwnerId { get; set; }
+        public UserModel Owner { get; set; }
+        public ICollection<ProjectTechnologiesModel> ProjectTechnologies { get; set; }
     }
 }

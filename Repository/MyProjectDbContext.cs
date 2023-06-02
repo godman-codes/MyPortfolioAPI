@@ -7,7 +7,7 @@ namespace Repository
     public class MyProjectDbContext : IdentityDbContext<UserModel>
     {
 
-        public MyProjectDbContext(DbContextOptions<MyProjectDbContext> options) : base(options)
+        public MyProjectDbContext(DbContextOptions options) : base(options)
         {
            
         }
@@ -15,5 +15,6 @@ namespace Repository
         public DbSet<TechnologiesModel> Technologies { get; set; }
         public DbSet<WorkExperienceModel> WorkExperiesnces { get; set; }
         public DbSet<ProjectTechnologiesModel> ProjectTechnologies { get; set; }
+
     }
 }

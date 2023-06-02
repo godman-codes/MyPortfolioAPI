@@ -5,12 +5,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entities.Models
 {
-    public class EntityBase<T> : IEntityBase<T>
-    {
-        [Required]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Key]
-        public T Id { get; set; }
+    public class EntityBase : IEntityBase
+    { 
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
         public bool IsDeleted { get; set; }
@@ -23,6 +19,7 @@ namespace Entities.Models
             IsDeleted = false;
             CreatedDate = DateTime.Now;
             UpdatedDate = DateTime.Now;
+            
         }
 
         public void ToDeletedEntity()

@@ -1,15 +1,21 @@
 using MyPortfolioAPI.Extensions;
+using NLog;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+// passing the enlog config file nto the logmanager load configuration method
+LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(), "./nlog.config"));
 
 // Configure Cross-Origin Resource Sharing (CORS).
 builder.Services.ConfigureCors();
 
 // Configure IIS Integration.
 builder.Services.ConfigureIISIntegration();
+
+// add the ilogger service extension method 
+builder.Services.ConfigureLoggerService();
 
 // Configure SQL Context and pass it the IConfiguration class to get the connection string.
 builder.Services.ConfigureSqlContext(builder.Configuration);

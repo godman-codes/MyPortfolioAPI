@@ -7,7 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyPortfolioAPI", "MyPortfol
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entities", "Entities\Entities.csproj", "{AFC4B42F-C5F7-439D-BC69-AE062596A84A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{FCD5D999-637B-40BA-84CB-5520E792E936}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository", "Repository\Repository.csproj", "{FCD5D999-637B-40BA-84CB-5520E792E936}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contracts", "Contracts\Contracts.csproj", "{F4C38F79-EA0F-47D8-B149-0F3B3783ADCC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoggerService", "LoggerService\LoggerService.csproj", "{2115AFDE-5C1E-4B35-BE6D-6874829A64DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +31,14 @@ Global
 		{FCD5D999-637B-40BA-84CB-5520E792E936}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FCD5D999-637B-40BA-84CB-5520E792E936}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FCD5D999-637B-40BA-84CB-5520E792E936}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4C38F79-EA0F-47D8-B149-0F3B3783ADCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4C38F79-EA0F-47D8-B149-0F3B3783ADCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4C38F79-EA0F-47D8-B149-0F3B3783ADCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4C38F79-EA0F-47D8-B149-0F3B3783ADCC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2115AFDE-5C1E-4B35-BE6D-6874829A64DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2115AFDE-5C1E-4B35-BE6D-6874829A64DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2115AFDE-5C1E-4B35-BE6D-6874829A64DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2115AFDE-5C1E-4B35-BE6D-6874829A64DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

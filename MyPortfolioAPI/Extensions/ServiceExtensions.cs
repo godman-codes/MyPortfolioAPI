@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Contracts;
+using LoggerService;
+using Microsoft.EntityFrameworkCore;
 using Repository;
 
 namespace MyPortfolioAPI.Extensions
@@ -28,5 +30,9 @@ namespace MyPortfolioAPI.Extensions
             IConfiguration configuration) =>
             services.AddDbContext<MyProjectDbContext>(opts =>
             opts.UseSqlServer(configuration.GetConnectionString("sqlConnection")));
+
+        // logging IOC
+        public static void ConfigureLoggerService(this IServiceCollection services) =>
+            services.AddSingleton<ILoggerManager, LoggerManager>();
     }
 }

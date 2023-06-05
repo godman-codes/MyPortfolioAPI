@@ -5,18 +5,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Entities.Models
 {
-    public class WorkExperienceModel : EntityBase
+    public class WorkExperienceModel : EntityBase<Guid>
     {
         public WorkExperienceModel() : base()
         {
 
         }
-
-        [Required]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Key]
-        [Column("WorkExperienceId")]
-        public Guid Id { get; set; }
         [Required]
         public string Company { get; set; }
         [Required]

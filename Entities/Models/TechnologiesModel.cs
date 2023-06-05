@@ -8,18 +8,14 @@ using System.Threading.Tasks;
 
 namespace Entities.Models
 {
-    public class TechnologiesModel : EntityBase
+    public class TechnologiesModel : EntityBase<Guid>
     {
         public TechnologiesModel() : base()
         {
 
         }
 
-        [Required]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Key]
-        [Column("TechnologyId")]
-        public Guid Id { get; set; }
+        
         [Required]
         public string Name { get; set; }
         public int? Percentage { get; set; }

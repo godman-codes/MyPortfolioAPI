@@ -164,7 +164,7 @@ namespace MyPortfolioAPI.Migrations
                 name: "Projects",
                 columns: table => new
                 {
-                    ProjectId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     GitHubLink = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -177,7 +177,7 @@ namespace MyPortfolioAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Projects", x => x.ProjectId);
+                    table.PrimaryKey("PK_Projects", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Projects_AspNetUsers_OwnerId",
                         column: x => x.OwnerId,
@@ -190,7 +190,7 @@ namespace MyPortfolioAPI.Migrations
                 name: "Technologies",
                 columns: table => new
                 {
-                    TechnologyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Percentage = table.Column<int>(type: "int", nullable: true),
                     OwnerId = table.Column<string>(type: "nvarchar(450)", nullable: true),
@@ -201,7 +201,7 @@ namespace MyPortfolioAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Technologies", x => x.TechnologyId);
+                    table.PrimaryKey("PK_Technologies", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Technologies_AspNetUsers_OwnerId",
                         column: x => x.OwnerId,
@@ -213,7 +213,7 @@ namespace MyPortfolioAPI.Migrations
                 name: "WorkExperiesnces",
                 columns: table => new
                 {
-                    WorkExperienceId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Company = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Role = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -227,7 +227,7 @@ namespace MyPortfolioAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_WorkExperiesnces", x => x.WorkExperienceId);
+                    table.PrimaryKey("PK_WorkExperiesnces", x => x.Id);
                     table.ForeignKey(
                         name: "FK_WorkExperiesnces_AspNetUsers_OwnerId",
                         column: x => x.OwnerId,
@@ -239,7 +239,7 @@ namespace MyPortfolioAPI.Migrations
                 name: "ProjectTechnologies",
                 columns: table => new
                 {
-                    ProjectTechnologyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProjectId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -249,12 +249,12 @@ namespace MyPortfolioAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProjectTechnologies", x => x.ProjectTechnologyId);
+                    table.PrimaryKey("PK_ProjectTechnologies", x => x.Id);
                     table.ForeignKey(
                         name: "FK_ProjectTechnologies_Projects_ProjectId",
                         column: x => x.ProjectId,
                         principalTable: "Projects",
-                        principalColumn: "ProjectId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 

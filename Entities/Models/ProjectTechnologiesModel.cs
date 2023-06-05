@@ -8,17 +8,12 @@ using System.Threading.Tasks;
 
 namespace Entities.Models
 {
-    public class ProjectTechnologiesModel : EntityBase
+    public class ProjectTechnologiesModel : EntityBase<Guid>
     {
         public ProjectTechnologiesModel() : base()
         {
 
         }
-        [Required]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Key]
-        [Column("ProjectTechnologyId")]
-        public Guid Id { get; set; }
         [Required]
         public string Name { get; set; }
         [ForeignKey(nameof(ProjectsModel))]

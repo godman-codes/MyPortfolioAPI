@@ -11,9 +11,10 @@ namespace Entities.Models
         {
 
         }
-        [Required]
+        [Required(ErrorMessage = "Company name is a required field.")]
+        [MaxLength(50, ErrorMessage = "Maximum length for the Name is 30 characters.")]
         public string Company { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Role name is a required field.")]
         public string Role { get; set; }
         public string Description { get; set; }
         [Required]

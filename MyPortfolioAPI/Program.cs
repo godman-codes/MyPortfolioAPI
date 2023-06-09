@@ -20,6 +20,11 @@ builder.Services.ConfigureLoggerService();
 // Configure SQL Context and pass it the IConfiguration class to get the connection string.
 builder.Services.ConfigureSqlContext(builder.Configuration);
 
+// configureRepository manager 
+builder.Services.ConfigureRepositoryManager();
+
+// configure service manager
+builder.Services.ConfigureServiceManager();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

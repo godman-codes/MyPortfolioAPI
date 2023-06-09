@@ -1,5 +1,7 @@
 ﻿using Contracts;
+using Entities.Models;
 using LoggerService;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Repository;
 using Service;
@@ -44,5 +46,22 @@ namespace MyPortfolioAPI.Extensions
         // service manager config
         public static void ConfigureServiceManager(this IServiceCollection services) =>
             services.AddScoped<IServiceManager, ServiceManager>();
+
+        // Identity configurations
+        public static void ConfigureIdentity(this IServiceCollection services)
+        {
+            var builder = services.AddIdentity<UserModel, IdentityRole>(o =>
+            {
+                o.Password.RequireDigit = true;
+                o.Password.RequireLowercase = false;
+                o.Password.RequireNonAlphanumeric = false;
+                o.Password.RequireUppercase = false;
+                o.Password.RequiredLength = 5;
+                o.User.RequireUniqueEmail = true;
+            })
+                .AddEntityFrameworkStores<MyProjectDbContext>()
+                .AddDefaultTokenProviders();
+        }
+
     }
 }

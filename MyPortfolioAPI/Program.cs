@@ -26,6 +26,10 @@ builder.Services.ConfigureRepositoryManager();
 // configure service manager
 builder.Services.ConfigureServiceManager();
 
+// configure identity user
+builder.Services.AddAuthentication();
+builder.Services.ConfigureIdentity();
+
 // assembly reference to point to where the presentation layer with the controllers is at 
 builder.Services.AddControllers()
     .AddApplicationPart(typeof(MyPortfolioAPI.Presentation.AssemblyReference).Assembly);
@@ -44,7 +48,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

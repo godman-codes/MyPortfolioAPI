@@ -11,6 +11,11 @@ namespace Repository
         {
            
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+        }
         public DbSet<ProjectsModel> Projects { get; set; }
         public DbSet<TechnologiesModel> Technologies { get; set; }
         public DbSet<WorkExperienceModel> WorkExperiesnces { get; set; }

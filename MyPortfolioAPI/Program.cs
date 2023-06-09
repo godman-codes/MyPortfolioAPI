@@ -26,7 +26,10 @@ builder.Services.ConfigureRepositoryManager();
 // configure service manager
 builder.Services.ConfigureServiceManager();
 
-builder.Services.AddControllers();
+// assembly reference to point to where the presentation layer with the controllers is at 
+builder.Services.AddControllers()
+    .AddApplicationPart(typeof(MyPortfolioAPI.Presentation.AssemblyReference).Assembly);
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

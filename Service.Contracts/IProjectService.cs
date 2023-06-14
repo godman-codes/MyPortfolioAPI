@@ -1,6 +1,6 @@
 ﻿namespace Service.Contracts
 {
-    public class IProjectService
+    public interface IProjectService
     {
 
     }

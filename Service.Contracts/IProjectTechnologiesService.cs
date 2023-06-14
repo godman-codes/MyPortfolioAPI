@@ -1,7 +1,7 @@
 ﻿
 namespace Service.Contracts
 {
-    public class IProjectTechnologiesService
+    public interface IProjectTechnologiesService
     {
     }
 }

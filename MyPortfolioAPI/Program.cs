@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Mvc;
 using MyPortfolioAPI.Extensions;
+using MyPortfolioAPI.Presentation.ActionFilters;
 using NLog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,9 +28,18 @@ builder.Services.ConfigureRepositoryManager();
 // configure service manager
 builder.Services.ConfigureServiceManager();
 
+// adding automapper
+builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddScoped<ValidationFilterAttribute>();
+
 // configure identity user
 builder.Services.AddAuthentication();
 builder.Services.ConfigureIdentity();
+
+builder.Services.Configure<ApiBehaviorOptions>(options =>
+{
+    options.SuppressModelStateInvalidFilter = true;
+});
 
 // assembly reference to point to where the presentation layer with the controllers is at 
 builder.Services.AddControllers()

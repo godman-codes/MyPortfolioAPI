@@ -34,7 +34,13 @@ builder.Services.AddScoped<ValidationFilterAttribute>();
 
 // configure identity user
 builder.Services.AddAuthentication();
+// identity
 builder.Services.ConfigureIdentity();
+//jwt
+builder.Services.ConfigureJWT(builder.Configuration);
+
+// IOptions
+builder.Services.AddJwtConfiguration(builder.Configuration);
 
 builder.Services.Configure<ApiBehaviorOptions>(options =>
 {

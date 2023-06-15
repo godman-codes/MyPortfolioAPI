@@ -1,4 +1,6 @@
 ﻿
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MyPortfolioAPI.Presentation.ActionFilters;
 using Service.Contracts;
@@ -14,8 +16,9 @@ namespace MyPortfolioAPI.Presentation.AuthenticationController
 
         public AuthenticationController(IServiceManager service) => _service = service;
 
-        [HttpPost]
+        [HttpPost("register")]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
+        [ProducesResponseType(typeof(StatusCodeResult), StatusCodes.Status201Created)]
         public async Task<IActionResult> RegisterUser([FromBody] UserForRegistrationDto userForRegistration)
         {
             var result = await _service.AuthenticationService.RegisterUser(userForRegistration);
@@ -29,6 +32,15 @@ namespace MyPortfolioAPI.Presentation.AuthenticationController
             }
             return StatusCode(201);
         }
-        
+
+        [HttpPost("login")]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
+        public async Task<IActionResult> Authenticate([FromBody] UserForAuthenticationDto user)
+        {
+            if (!await _service.AuthenticationService.ValidateUser(user))
+                return Unauthorized();
+            var tokenDto = await _service.AuthenticationService.CreateToken(populateExp: true);
+            return Ok(tokenDto);
+        }
     }
 }

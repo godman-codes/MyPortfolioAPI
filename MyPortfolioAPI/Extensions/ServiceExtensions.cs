@@ -1,11 +1,15 @@
 ﻿using Contracts;
+using Entities.ConfigurationModels;
 using Entities.Models;
 using LoggerService;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.EntityFrameworkCore;
 using Repository;
 using Service;
 using Service.Contracts;
+using System.Text;
 
 namespace MyPortfolioAPI.Extensions
 {
@@ -62,6 +66,40 @@ namespace MyPortfolioAPI.Extensions
                 .AddEntityFrameworkStores<MyProjectDbContext>()
                 .AddDefaultTokenProviders();
         }
+        // configuring jwt
+        public static void ConfigureJWT(this IServiceCollection service, IConfiguration configuration)
+        {
+            var jwtConfiguration = new JwtConfiguration();
 
+            configuration.Bind(jwtConfiguration.Section, jwtConfiguration);
+
+            var secretKey = Environment.GetEnvironmentVariable("SECRET");
+
+            service.AddAuthentication(
+                opt =>
+                {
+                    opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                }).AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        // The issuer is the actual server that created the token (ValidateIssuer=true)
+                        ValidateIssuer = true,
+                        //The receiver of the token is a valid recipient(ValidateAudience = true)
+                        ValidateAudience = true,
+                        //The token has not expired(ValidateLifetime = true)
+                        ValidateLifetime = true,
+                        //The signing key is valid and is trusted by the server(ValidateIssuerSigningKey = true)
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = jwtConfiguration.ValidIssuer,
+                        ValidAudience = jwtConfiguration.ValidAudience,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
+                    };
+                });
+        }
+        public static void AddJwtConfiguration(this IServiceCollection services,
+           IConfiguration configuration) =>
+           services.Configure<JwtConfiguration>(configuration.GetSection("JwtSettings"));
     }
 }

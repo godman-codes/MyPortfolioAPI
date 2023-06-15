@@ -2,6 +2,7 @@
 
 using AutoMapper;
 using Contracts;
+using Entities.ConfigurationModels;
 using Entities.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
@@ -23,7 +24,7 @@ namespace Service
             ILoggerManager loggerManager,
             UserManager<UserModel> userManager,
             RoleManager<IdentityRole> roleManager,
-            IConfiguration configuration,
+            IOptions<JwtConfiguration> configuration,
             IMapper mapper
 
             )

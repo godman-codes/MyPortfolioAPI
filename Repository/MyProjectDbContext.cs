@@ -17,7 +17,7 @@ namespace Repository
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.ApplyConfiguration(new RoleConfiguration());
+            //modelBuilder.ApplyConfiguration(new RoleConfiguration());
         }
         public DbSet<ProjectsModel> Projects { get; set; }
         public DbSet<TechnologiesModel> Technologies { get; set; }

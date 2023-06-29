@@ -3,9 +3,9 @@
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 
-namespace Shared.DTOs
+namespace Shared.DTOs.Request
 {
-    public  record UserForRegistrationDto
+    public record UserForRegistrationDto
     {
         [Required(ErrorMessage = "FirstName is Required!")]
         public string? FirstName { get; init; }
@@ -17,7 +17,7 @@ namespace Shared.DTOs
         public string? Password { get; init; }
         [Required(ErrorMessage = "Confirm Password is Required!")]
         [DataType(DataType.Password)]
-        [Compare("Password", ErrorMessage="Password does not match!")]
+        [Compare("Password", ErrorMessage = "Password does not match!")]
 
         public string? confirmPassword { get; init; }
         [Required(ErrorMessage = "Email is required")]

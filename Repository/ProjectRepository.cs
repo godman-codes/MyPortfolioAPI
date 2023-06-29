@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Repository
 {
-    public class ProjectRepository : RepositoryBase<ProjectsModel>, IProjectRepository
+    public class ProjectRepository : RepositoryBase<ProjectsModel, Guid>, IProjectRepository
     {
         public ProjectRepository(MyProjectDbContext context) : base(context) 
         {

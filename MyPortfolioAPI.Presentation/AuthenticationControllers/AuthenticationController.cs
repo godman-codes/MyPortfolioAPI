@@ -4,12 +4,13 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MyPortfolioAPI.Presentation.ActionFilters;
 using Service.Contracts;
-using Shared.DTOs;
+using Shared.DTOs.Request;
 
 namespace MyPortfolioAPI.Presentation.AuthenticationController
 {
     [Route("api/authentication")]
     [ApiController]
+    [ApiExplorerSettings(GroupName = "v1")]
     public class AuthenticationController : ControllerBase
     {
         private readonly IServiceManager _service;

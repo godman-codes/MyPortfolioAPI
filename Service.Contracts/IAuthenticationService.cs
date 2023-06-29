@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Shared.DTOs;
+using Shared.DTOs.Request;
 
 namespace Service.Contracts
 {

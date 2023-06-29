@@ -28,13 +28,13 @@ namespace Repository
         public IProjectRepository Projects => _projectRepository.Value;
 
         public ITechnologiesRepository Technologies => _technologyRepository.Value;
-        public IWorkExperienceRepository WorkExperienceRepository => _workExperienceRepository.Value;
+        public IWorkExperienceRepository WorkExperience => _workExperienceRepository.Value;
 
-        public IProjectTechnologiesRepository ProjectTechnologiesRepository => _ProjectTechnologyRepository.Value;
+        public IProjectTechnologiesRepository ProjectTechnologies => _ProjectTechnologyRepository.Value;
 
-        public void save()
+        public async Task Save()
         {
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 }

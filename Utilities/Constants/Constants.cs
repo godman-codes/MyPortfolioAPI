@@ -16,6 +16,7 @@ namespace Utilities.Constants
         public const string Email = "Email";
         public const string FirstName = "FirstName";
         public const string LastName = "LastName";
+        public const string WorkExperience = "Work Experience";
 
 
 
@@ -27,6 +28,7 @@ namespace Utilities.Constants
         public const string RequiredSubject = "{0} is required!";
         public const string RequestValidSubject = "Please enter valid {0}!";
         public const string SubjectDoesNotMatch = "{0} does not match!";
+        public const string NotFoundSentence = "the {0} with id : {1} dosent't exist";
 
     }
 }

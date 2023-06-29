@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Shared.DTOs
+namespace Shared.DTOs.Request
 {
     public record UserForAuthenticationDto
     {

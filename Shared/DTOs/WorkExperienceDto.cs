@@ -1,16 +1,14 @@
-﻿
-
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Entities.Models
+namespace Shared.DTOs
 {
-    public class WorkExperienceModel : EntityBase<Guid>
+    public abstract record WorkExperienceDto
     {
-        public WorkExperienceModel() : base()
-        {
-
-        }
         [Required(ErrorMessage = "Company name is a required field.")]
         [MaxLength(50, ErrorMessage = "Maximum length for the Name is 30 characters.")]
         public string Company { get; set; }
@@ -20,9 +18,5 @@ namespace Entities.Models
         [Required]
         public DateTime From { get; set; }
         public DateTime? To { get; set; }
-        [Required]
-        [ForeignKey(nameof(UserModel))]
-        public string OwnerId { get; set; }
-        public UserModel Owner { get; set; }
     }
 }

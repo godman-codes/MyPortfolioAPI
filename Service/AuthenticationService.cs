@@ -10,6 +10,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Service.Contracts;
 using Shared.DTOs;
+using Shared.DTOs.Request;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -121,7 +122,13 @@ namespace Service
             var claims = new List<Claim>
             {
                 // Add the user's name as a claim
-                new Claim(ClaimTypes.Name, _user.Email)
+                new Claim(ClaimTypes.Name, value: _user.Email),
+                new Claim(type: "Id", value: _user.Id),
+                new Claim(type: JwtRegisteredClaimNames.Sub, value: _user.Id),
+                new Claim(type: JwtRegisteredClaimNames.Email, value: _user.Email),
+                new Claim(type: JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim(type: JwtRegisteredClaimNames.Iat, value: DateTime.Now.ToUniversalTime().ToString())
+
             };
 
             // Get the roles associated with the user

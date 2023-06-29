@@ -9,7 +9,7 @@ using Utilities.Constants;
 
 namespace Entities.Exceptions
 {
-    public class RefreshTokenBadRequest : Exception
+    public class RefreshTokenBadRequest : BadRequestException
     {
         public RefreshTokenBadRequest() : base(string.Format(Constants.InvalidInformation, Constants.Token ))
         {

@@ -1,4 +1,5 @@
 ﻿using Contracts;
+using Entities.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -6,10 +7,11 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Utilities.Queries;
 
 namespace Repository
 {
-    public class RepositoryBase<T> : IRepositoryBase<T> where T : class
+    public class RepositoryBase<T, R> : IRepositoryBase<T, R> where T : class, IEntityBase<R>, new()
     {
         protected MyProjectDbContext Context;
 
@@ -33,9 +35,12 @@ namespace Repository
                 Context.Set<T>();
 
         public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expresion, bool trackChanges)
-        =>
-            !trackChanges ? Context.Set<T>().Where(expresion).AsNoTracking() :
-            Context.Set<T>().Where(expresion);
+        {
+            Expression<Func<T, bool>> whereClause1 = (p => !p.IsDeleted);
+            Expression<Func<T, bool>> where = QueryCombinator.MergeWithAnd<T>(expresion, whereClause1);
+         return  !trackChanges ? Context.Set<T>().Where(where).AsNoTracking() :
+            Context.Set<T>().Where(where);
+        }
 
         public void Update(T entity)
         {

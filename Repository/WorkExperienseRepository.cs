@@ -23,6 +23,7 @@ namespace Repository
             Delete(workExperience);
         }
 
+
         public async Task<IEnumerable<WorkExperienceModel>> GetAllWorkExperienceiesAysnc(bool trackChanges, string userId)
         {
             return await FindByCondition(r => r.OwnerId == userId, trackChanges)
@@ -34,5 +35,7 @@ namespace Repository
         public async Task<WorkExperienceModel> GetWorkExperienceAsync(Guid Id, bool trackChanges, string userId) => await FindByCondition(r => r.Id == Id, trackChanges)
                 .Where(r => r.OwnerId == userId)
                 .SingleOrDefaultAsync();
+
+
     }
 }

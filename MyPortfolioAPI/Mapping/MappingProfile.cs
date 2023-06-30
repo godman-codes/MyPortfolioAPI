@@ -14,7 +14,9 @@ namespace MyPortfolioAPI.Mapping
                 // this allows for the adding of the owner id during mapping
                 .ForMember(dest => dest.OwnerId, opt => opt.MapFrom((src, _, _, context) => context.Items["OwnerId"]));
             CreateMap<WorkExperienceModel, WorkExperienceResponseDto>();
-            CreateMap<WorkExperienceToUpdateDto, WorkExperienceModel>();
+            CreateMap<WorkExperienceToUpdateDto, WorkExperienceModel>().ReverseMap();
+            //CreateMap<DeleteResouceDto, WorkExperienceModel>()
+            //    .ForAllMembers(opt => opt.Condition((src, dest, srcMember) => srcMember != null));
         }
 
     }

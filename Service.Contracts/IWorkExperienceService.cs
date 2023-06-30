@@ -14,7 +14,7 @@ namespace Service.Contracts
         Task<IEnumerable<WorkExperienceResponseDto>> GetAllWorkExperience(bool trackChanges, string UserId);
         Task<WorkExperienceResponseDto> GetWorkExperience(Guid id, bool trackchanges, string UserId);
         Task<WorkExperienceResponseDto> CreateWorkExperience(WorkExperienceRequestDto workExperience, string userId);
-        Task DeletWorkExperience(Guid id, bool trackChanges);
-        Task UpdateWorkxperience(Guid id, WorkExperienceToUpdateDto workExperienceToUpdate, bool trackChanges);
+        Task DeleteWorkExperience(Guid id, bool trackChanges, string userId);
+        Task UpdateWorkExperience(Guid id, WorkExperienceToUpdateDto workExperienceToUpdate, bool trackChanges, string userId);
     }
 }

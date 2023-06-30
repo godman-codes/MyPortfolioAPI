@@ -4,12 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using MyPortfolioAPI.Presentation.ActionFilters;
 using Service.Contracts;
 using Shared.DTOs.Request;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace MyPortfolioAPI.Presentation.Controllers
 {
@@ -52,5 +48,42 @@ namespace MyPortfolioAPI.Presentation.Controllers
             var WorkExperience = await _service.WorkExperienceService.GetWorkExperience(id, trackchanges: false, userId);
             return Ok(WorkExperience);
         }
+
+        [HttpGet]
+        [Authorize(Roles = "Developer")]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> GetAllWorkExperiences()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var workExperiences = await _service.WorkExperienceService.GetAllWorkExperience(trackChanges: false, userId);
+
+            return Ok(workExperiences);
+        }
+
+        [HttpPut("{id:guid}")]
+        [Authorize(Roles = "Developer")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
+        public async Task<IActionResult> UpdateWorkExperience(Guid id, [FromBody] WorkExperienceToUpdateDto workExperienceToUpdate)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            await _service.WorkExperienceService.UpdateWorkExperience(id, workExperienceToUpdate, trackChanges: true, userId);
+            return NoContent();
+        }
+
+
+        [HttpDelete("{id:guid}")]
+        [Authorize(Roles = "Developer")]
+        [ProducesResponseType(204)]
+        public async Task<IActionResult> DeleteWorkExperience(Guid id)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            await _service.WorkExperienceService.DeleteWorkExperience(id, trackChanges:true, userId);
+            return NoContent();
+        }
+
     }
 }

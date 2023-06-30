@@ -20,16 +20,16 @@ namespace Entities.Models
 
         public EntityBase()
         {
-            IsDeleted = false;
-            CreatedDate = DateTime.Now;
-            UpdatedDate = DateTime.Now;
+            this.IsDeleted = false;
+            this.CreatedDate = DateTime.Now;
+            this.UpdatedDate = DateTime.Now;
             
         }
 
         public void ToDeletedEntity()
         {
-            IsDeleted = true;
-            UpdatedDate = DateTime.Now;
+            this.IsDeleted = true;
+            this.UpdatedDate = DateTime.Now;
         }
 
 

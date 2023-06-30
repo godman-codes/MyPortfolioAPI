@@ -13,7 +13,7 @@ namespace Repository
 {
     public class RepositoryBase<T, R> : IRepositoryBase<T, R> where T : class, IEntityBase<R>, new()
     {
-        protected MyProjectDbContext Context;
+        protected MyProjectDbContext Context ;
 
         public RepositoryBase(MyProjectDbContext context)
         {

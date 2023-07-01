@@ -17,6 +17,12 @@ namespace MyPortfolioAPI.Mapping
             CreateMap<WorkExperienceToUpdateDto, WorkExperienceModel>().ReverseMap();
             //CreateMap<DeleteResouceDto, WorkExperienceModel>()
             //    .ForAllMembers(opt => opt.Condition((src, dest, srcMember) => srcMember != null));
+            CreateMap<TechnologyRequestDto, TechnologiesModel>()
+                // this allows for the adding of the owner id during mapping
+                .ForMember(dest => dest.OwnerId, opt => opt.MapFrom((src, _, _, context) => context.Items["OwnerId"]));
+            CreateMap<TechnologiesModel, TechnologyResponseDto>();
+            CreateMap<TechnologyUpdateDto, TechnologiesModel>().ReverseMap();
+
         }
 
     }

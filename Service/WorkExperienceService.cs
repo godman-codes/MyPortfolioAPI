@@ -53,7 +53,7 @@ namespace Service
         {
             var workExperience = await WorkExperienceExists(id, trackChanges, userId);
             _mapper.Map(workExperienceToUpdate, workExperience);
-            workExperience.UpdatedDate = DateTime.Now;
+            workExperience.ToUpdate();
             await _repository.Save();
         }
         public async Task DeleteWorkExperience(Guid id, bool trackChanges, string userId)

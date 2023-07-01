@@ -30,7 +30,7 @@ namespace Service
             )
         {
             _projectService = new Lazy<IProjectService>(() => new ProjectService(repositoryManager, loggerManager));
-            _technologyService = new Lazy<ITechnologyService>(() => new TechnologyService(repositoryManager, loggerManager));
+            _technologyService = new Lazy<ITechnologyService>(() => new TechnologyService(repositoryManager, loggerManager, mapper));
             _workExperienceService = new Lazy<IWorkExperienceService>(() => new WorkExperienceService(repositoryManager, loggerManager, mapper));
             _projectTechnologyService = new Lazy<IProjectTechnologiesService>(() => new ProjectTechnologiesService(repositoryManager, loggerManager));
             _authenticationService = new Lazy<IAuthenticationService>(() => new AuthenticationService(loggerManager, mapper,userManager,configuration, roleManager));

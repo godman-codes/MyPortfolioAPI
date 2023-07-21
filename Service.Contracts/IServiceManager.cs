@@ -11,7 +11,6 @@ namespace Service.Contracts
         IProjectService ProjectService { get; }
         ITechnologyService TechnologyService { get; }
         IWorkExperienceService WorkExperienceService { get; }
-        IProjectTechnologiesService ProjectTechnologiesService { get; }
         IAuthenticationService AuthenticationService { get; }
     }
 }

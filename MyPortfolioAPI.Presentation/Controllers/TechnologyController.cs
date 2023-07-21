@@ -70,7 +70,6 @@ namespace MyPortfolioAPI.Presentation.Controllers
         [HttpPut("{id:Guid}")]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
-
         [Authorize(Roles = "Developer")]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
 

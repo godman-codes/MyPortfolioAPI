@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Contracts
+namespace Shared.DTOs.Response
 {
-    public interface IProjectTechnologiesRepository
+    public record ProjectResponseDto : ProjectDto
     {
+        public Guid Id { get; init; }
     }
 }

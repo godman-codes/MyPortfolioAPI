@@ -5,11 +5,7 @@ using Entities.Models;
 using Service.Contracts;
 using Shared.DTOs.Request;
 using Shared.DTOs.Response;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Utilities.Constants;
 
 namespace Service
 {
@@ -30,7 +26,7 @@ namespace Service
         {
             if (await TechnologyExistByName(technologyRequest.Name, false, userId ))
             {
-                throw new ResourceWithPropertyExistException();
+                throw new AlreadyExistsException(Constants.Technology, Constants.Name);
             }
             var technologyEntities = _mapper.Map<TechnologiesModel>(technologyRequest, opts => opts.Items["OwnerId"] = userId);
             _repository.Technologies.CreateTechnology(technologyEntities);
@@ -78,7 +74,7 @@ namespace Service
             {
                 if (await TechnologyExistByName(technologyUpdate.Name, trackChanges, userId))
                 {
-                    throw new ResourceWithPropertyExistException();
+                    throw new AlreadyExistsException(Constants.Technology, Constants.Name);
                 }
 
             }

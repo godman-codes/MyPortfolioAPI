@@ -15,10 +15,12 @@ namespace Entities.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public string GitHubLink { get; set; }
+        public string Role { get; set; }
         public string ProductionLink { get; set; }
         [ForeignKey(nameof(UserModel))]
         public string OwnerId { get; set; }
         public UserModel Owner { get; set; }
-        public ICollection<ProjectTechnologiesModel> ProjectTechnologies { get; set; }
+        [Column(TypeName = "nvarchar(max)")]
+        public string Tools { get; set; }
     }
 }

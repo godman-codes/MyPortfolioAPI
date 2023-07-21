@@ -22,7 +22,6 @@ namespace Repository
         public DbSet<ProjectsModel> Projects { get; set; }
         public DbSet<TechnologiesModel> Technologies { get; set; }
         public DbSet<WorkExperienceModel> WorkExperiesnces { get; set; }
-        public DbSet<ProjectTechnologiesModel> ProjectTechnologies { get; set; }
 
     }
 }

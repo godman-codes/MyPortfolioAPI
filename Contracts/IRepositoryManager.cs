@@ -11,7 +11,6 @@ namespace Contracts
         IProjectRepository Projects { get; }
         ITechnologiesRepository Technologies { get; }
         IWorkExperienceRepository WorkExperience{ get; }
-        IProjectTechnologiesRepository ProjectTechnologies { get; }
         Task Save();
     }
 }

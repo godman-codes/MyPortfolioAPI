@@ -14,7 +14,6 @@ namespace Repository
         private readonly Lazy<IProjectRepository> _projectRepository;
         private readonly Lazy<ITechnologiesRepository> _technologyRepository;
         private readonly Lazy<IWorkExperienceRepository> _workExperienceRepository;
-        private readonly Lazy<IProjectTechnologiesRepository> _ProjectTechnologyRepository;
 
         public RepositoryManager(MyProjectDbContext context)
         {
@@ -22,7 +21,6 @@ namespace Repository
             _projectRepository = new Lazy<IProjectRepository>(() => new ProjectRepository(context));
             _technologyRepository = new Lazy<ITechnologiesRepository>(() => new TechnologyRepository(context));
             _workExperienceRepository = new Lazy<IWorkExperienceRepository>(() => new WorkExperienseRepository(context));
-            _ProjectTechnologyRepository = new Lazy<IProjectTechnologiesRepository>(() => new ProjectTechnologyRepository(context));
       
         }
         public IProjectRepository Projects => _projectRepository.Value;
@@ -30,7 +28,6 @@ namespace Repository
         public ITechnologiesRepository Technologies => _technologyRepository.Value;
         public IWorkExperienceRepository WorkExperience => _workExperienceRepository.Value;
 
-        public IProjectTechnologiesRepository ProjectTechnologies => _ProjectTechnologyRepository.Value;
 
         public async Task Save()
         {

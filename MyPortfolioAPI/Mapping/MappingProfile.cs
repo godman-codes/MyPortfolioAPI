@@ -22,6 +22,12 @@ namespace MyPortfolioAPI.Mapping
                 .ForMember(dest => dest.OwnerId, opt => opt.MapFrom((src, _, _, context) => context.Items["OwnerId"]));
             CreateMap<TechnologiesModel, TechnologyResponseDto>();
             CreateMap<TechnologyUpdateDto, TechnologiesModel>().ReverseMap();
+            CreateMap<ProjectRequestDto, ProjectsModel>()
+                .ForMember(dest => dest.OwnerId, opt => opt.MapFrom((src, _, _, context) => context.Items["OwnerId"]));
+            
+            CreateMap<ProjectsModel, ProjectResponseDto>().ReverseMap();
+            CreateMap<ProjectToUpdateDto, ProjectsModel>();
+                //.ForAllMembers(opt => opt.Condition((src, dest, srcMember) => srcMember != null));
 
         }
 

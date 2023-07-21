@@ -18,7 +18,9 @@ namespace Utilities.Constants
         public const string LastName = "LastName";
         public const string WorkExperience = "Work Experience";
         public const string Technology = "Technology";
+        public const string Project = "Project";
         public const string Name = "Name";
+        public const string GithubLink = "Github Link";
 
 
 
@@ -31,7 +33,7 @@ namespace Utilities.Constants
         public const string RequestValidSubject = "Please enter valid {0}!";
         public const string SubjectDoesNotMatch = "{0} does not match!";
         public const string NotFoundSentence = "the {0} with id : {1} dosent't exist";
-        public const string ResouceWithProperyExist = "{0} with {0} already exists";
+        public const string ResouceWithProperyExist = "{0} with specified {1} already exists";
 
     }
 }

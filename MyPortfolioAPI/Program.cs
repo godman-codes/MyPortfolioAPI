@@ -49,7 +49,13 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
 });
 
 // assembly reference to point to where the presentation layer with the controllers is at 
-builder.Services.AddControllers()
+builder.Services.AddControllers(config =>
+{
+    config.RespectBrowserAcceptHeader = true;
+    config.ReturnHttpNotAcceptable = true;
+    // the ABL tells the api not to accept content type it dosent recognise
+})
+    .AddXmlDataContractSerializerFormatters()
     .AddApplicationPart(typeof(MyPortfolioAPI.Presentation.AssemblyReference).Assembly);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

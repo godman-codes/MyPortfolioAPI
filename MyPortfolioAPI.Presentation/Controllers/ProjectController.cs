@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using MyPortfolioAPI.Presentation.ActionFilters;
 using Service.Contracts;
 using Shared.DTOs.Request;
-using System.Globalization;
 using System.Security.Claims;
 
 namespace MyPortfolioAPI.Presentation.Controllers

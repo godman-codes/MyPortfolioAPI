@@ -191,5 +191,10 @@ namespace MyPortfolioAPI.Extensions
                 });
             });
         }
+
+        public static IMvcBuilder AddCustomCSVFormatter(this IMvcBuilder builder) =>
+            builder.AddMvcOptions(config => config.OutputFormatters.Add(
+                new CsvOutputFormatter()
+                ));
     }
 }

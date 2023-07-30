@@ -56,6 +56,7 @@ builder.Services.AddControllers(config =>
     // the ABL tells the api not to accept content type it dosent recognise
 })
     .AddXmlDataContractSerializerFormatters()
+    .AddCustomCSVFormatter()
     .AddApplicationPart(typeof(MyPortfolioAPI.Presentation.AssemblyReference).Assembly);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

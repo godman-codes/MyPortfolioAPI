@@ -242,5 +242,17 @@ namespace Service
             var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
             return code;
         }
+
+        public async Task<IdentityResult> ActivateAccount(AccountActivationByEmailDto accountActivation)
+        {
+            var user = await _userManager.FindByIdAsync(accountActivation.userId);
+
+            if (user == null)
+            {
+                throw new UserNotFound(accountActivation.userId);
+            }
+            var result = await _userManager.ConfirmEmailAsync(user, accountActivation.token);
+            return result;
+        }
     }
 }

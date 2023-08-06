@@ -42,6 +42,7 @@ namespace Utilities.Constants
         public const string Project = "Project";
         public const string Name = "Name";
         public const string GithubLink = "Github Link";
+        public const string User = "User";
 
 
 
@@ -55,6 +56,8 @@ namespace Utilities.Constants
         public const string SubjectDoesNotMatch = "{0} does not match!";
         public const string NotFoundSentence = "the {0} with id : {1} dosent't exist";
         public const string ResouceWithProperyExist = "{0} with specified {1} already exists";
+        public const string AccountActivationErrorMessage = "Account activation unsuccessfull";
+        public const string AccountActivationMessage = "Account activation successfull";
 
         public const string ToPersonanized = "To Personanized this template, Use the following \n ";
         public const string WebRootPath = "WebRootPath";

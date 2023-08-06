@@ -8,6 +8,7 @@ namespace Entities.SystemModels
 {
     public class SMTPSettings
     {
+        public string Section { get; set; } = "SMTPSettings";
         public string FromEmail { get; set; }
         public string FromEmailPassword { get; set; }
         public int HostPort { get; set; }

@@ -32,7 +32,10 @@ namespace Utilities.Enum
             Constants.Constants.CommaSpace +
              TagName.Surname +
             Constants.Constants.CommaSpace +
-            TagName.ActivationToken)]
+            TagName.ActivationToken +
+            Constants.Constants.CommaSpace +
+            TagName.UserId
+            )]
         AccountActivation,
     }
 }

@@ -41,7 +41,7 @@ namespace Service.BackgroundServices
                     MyProjectDbContext context = servicesProvider.GetService<MyProjectDbContext>();
 
                     await SendEmailsInBatches(context);
-                    await Task.Delay(5000, stoppingToken);
+                    await Task.Delay(50000, stoppingToken);
                 }
             }
             catch (Exception ex )

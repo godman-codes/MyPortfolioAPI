@@ -140,21 +140,15 @@ namespace MyPortfolioAPI.Extensions
 
         public static void AddSMTPConfigurations(this IServiceCollection services, IConfiguration configuration)
         {
-            var smtpSettings = new SMTPSettings();
+            services.Configure<SMTPSettings>(configuration.GetSection("SMTPSettings"));
 
-            configuration.GetSection("SMTPSettings").Bind(smtpSettings);
-
-            if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("FromEmail")))
-            {
-                smtpSettings.FromEmail = Environment.GetEnvironmentVariable("FromEmail");
-            }
-
-            if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("FromEmailPassword")))
-            {
-                smtpSettings.FromEmailPassword = Environment.GetEnvironmentVariable("FromEmailPassword");
-            }
-
-            services.Configure<SMTPSettings>(opt => opt =smtpSettings);
+            services.AddOptions<SMTPSettings>()
+                .Configure<IConfiguration>((settings, configuration) =>
+                {
+                    configuration.GetSection("SMTPSettings").Bind(settings);
+                    settings.FromEmail = Environment.GetEnvironmentVariable("FromEmail");
+                    settings.FromEmailPassword = Environment.GetEnvironmentVariable("FromEmailPassword");
+                });
         }
 
         /// <summary>

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using MyPortfolioAPI.Presentation.ActionFilters;
 using Service.Contracts;
 using Shared.DTOs.Request;
+using Utilities.Constants;
 
 namespace MyPortfolioAPI.Presentation.AuthenticationController
 {
@@ -20,6 +21,7 @@ namespace MyPortfolioAPI.Presentation.AuthenticationController
         [HttpPost("register")]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
         [ProducesResponseType(typeof(StatusCodeResult), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(StatusCodeResult), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> RegisterUser([FromBody] UserForRegistrationDto userForRegistration)
         {
             var result = await _service.AuthenticationService.RegisterUser(userForRegistration);
@@ -35,6 +37,8 @@ namespace MyPortfolioAPI.Presentation.AuthenticationController
         }
 
         [HttpPost("login")]
+        [ProducesResponseType(typeof(StatusCodeResult), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(StatusCodeResult), StatusCodes.Status401Unauthorized)]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> Authenticate([FromBody] UserForAuthenticationDto user)
         {
@@ -43,5 +47,21 @@ namespace MyPortfolioAPI.Presentation.AuthenticationController
             var tokenDto = await _service.AuthenticationService.CreateToken(populateExp: true);
             return Ok(tokenDto);
         }
+
+        [HttpPost("ActivateAccount")]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
+        [ProducesResponseType(typeof(StatusCodeResult), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(StatusCodeResult), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> ActivateAccount([FromBody] AccountActivationByEmailDto accountActivation)
+        {
+            var result = await _service.AuthenticationService.ActivateAccount(accountActivation);
+            if (!result.Succeeded)
+            {
+                return BadRequest(Constants.AccountActivationErrorMessage);
+            }
+            return Ok(Constants.AccountActivationMessage);
+
+        }
+
     }
 }

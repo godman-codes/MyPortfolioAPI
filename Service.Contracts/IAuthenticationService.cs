@@ -12,5 +12,6 @@ namespace Service.Contracts
         Task<TokenDto> CreateToken(bool populateExp);
         Task<TokenDto> RefreshToken(TokenDto tokenDto);
         Task<string> GetEmailConfirmationToken(UserModel user);
+        Task<IdentityResult> ActivateAccount(AccountActivationByEmailDto accountActivation);
     }
 }

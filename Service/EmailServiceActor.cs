@@ -107,7 +107,8 @@ namespace Service
                     r.EmailConfirmed,
                     r.Email,
                     r.PhoneNumber,
-                    email.NewUserActivationToken
+                    email.NewUserActivationToken,
+                    r.Id
                 })
                 .FirstOrDefaultAsync();
 
@@ -124,13 +125,15 @@ namespace Service
                 .Replace(TagName.FirstName, user.FirstName)
                 .Replace(TagName.Surname, user.LastName)
                 .Replace(TagName.EmailAddress, user.Email)
-                .Replace(TagName.ActivationToken, string.IsNullOrEmpty(email.NewUserActivationToken) ? "" : email.NewUserActivationToken);
+                .Replace(TagName.ActivationToken, string.IsNullOrEmpty(email.NewUserActivationToken) ? "" : email.NewUserActivationToken)
+                .Replace(TagName.UserId, string.IsNullOrEmpty(email.UserId) ? "" : email.UserId);
 
             string subject = template.Subject
                 .Replace(TagName.FirstName, user.FirstName)
                 .Replace(TagName.Surname, user.LastName)
                 .Replace(TagName.EmailAddress, user.Email)
-                .Replace(TagName.PhoneNumber, user.PhoneNumber);
+                .Replace(TagName.PhoneNumber, user.PhoneNumber)
+                .Replace(TagName.UserId, user.Id);
 
             return new EmailContent()
             {

@@ -40,5 +40,6 @@ namespace Utilities.Constants
         public const string Action = "[[Action]]";
         public const string CompanyName = "[[CompanyName]]";
         public const string EnrolleeNumber = "[[EnrolleeNumber]]";
+        public const string UserId = "[[UserId]]";
     }
 }

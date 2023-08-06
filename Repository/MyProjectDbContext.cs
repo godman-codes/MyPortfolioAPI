@@ -1,4 +1,5 @@
 ﻿using Entities.Models;
+using Entities.SystemModels;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Repository.Configuration;
@@ -18,10 +19,15 @@ namespace Repository
             base.OnModelCreating(modelBuilder);
 
             //modelBuilder.ApplyConfiguration(new RoleConfiguration());
+            //modelBuilder.Entity<UserModel>()
+            //    .Has
         }
         public DbSet<ProjectsModel> Projects { get; set; }
         public DbSet<TechnologiesModel> Technologies { get; set; }
         public DbSet<WorkExperienceModel> WorkExperiesnces { get; set; }
+        public DbSet<EmailModel> EmailLogs { get; set; }
+        public DbSet<EmailTemplateModel> EmailTemplates { get; set; }
+
 
     }
 }

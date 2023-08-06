@@ -11,6 +11,8 @@ using Service.Contracts;
 using System.Text;
 using Microsoft.OpenApi.Models;
 using Contracts;
+using Entities.SystemModels;
+using Service.BackgroundServices;
 
 namespace MyPortfolioAPI.Extensions
 {
@@ -90,6 +92,8 @@ namespace MyPortfolioAPI.Extensions
                 o.Password.RequireUppercase = false;
                 o.Password.RequiredLength = 5;
                 o.User.RequireUniqueEmail = true;
+                o.SignIn.RequireConfirmedEmail = true;
+                o.Tokens.PasswordResetTokenProvider = TokenOptions.DefaultEmailProvider;
             })
             .AddEntityFrameworkStores<MyProjectDbContext>()
             .AddDefaultTokenProviders();
@@ -128,6 +132,29 @@ namespace MyPortfolioAPI.Extensions
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
                 };
             });
+        }
+        public static void ConfigureHosting(this IServiceCollection services)
+        {
+            services.AddHostedService<PortfolioBackgroundService>();
+        }
+
+        public static void AddSMTPConfigurations(this IServiceCollection services, IConfiguration configuration)
+        {
+            var smtpSettings = new SMTPSettings();
+
+            configuration.GetSection("SMTPSettings").Bind(smtpSettings);
+
+            if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("FromEmail")))
+            {
+                smtpSettings.FromEmail = Environment.GetEnvironmentVariable("FromEmail");
+            }
+
+            if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("FromEmailPassword")))
+            {
+                smtpSettings.FromEmailPassword = Environment.GetEnvironmentVariable("FromEmailPassword");
+            }
+
+            services.Configure<SMTPSettings>(opt => opt =smtpSettings);
         }
 
         /// <summary>

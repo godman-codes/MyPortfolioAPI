@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repository;
 
@@ -11,9 +12,10 @@ using Repository;
 namespace MyPortfolioAPI.Migrations
 {
     [DbContext(typeof(MyProjectDbContext))]
-    partial class MyProjectDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230804085718_UserModelChanges")]
+    partial class UserModelChanges
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -76,7 +78,7 @@ namespace MyPortfolioAPI.Migrations
 
                     b.HasIndex("OwnerId");
 
-                    b.ToTable("Projects", (string)null);
+                    b.ToTable("Projects");
                 });
 
             modelBuilder.Entity("Entities.Models.TechnologiesModel", b =>
@@ -115,7 +117,7 @@ namespace MyPortfolioAPI.Migrations
 
                     b.HasIndex("OwnerId");
 
-                    b.ToTable("Technologies", (string)null);
+                    b.ToTable("Technologies");
                 });
 
             modelBuilder.Entity("Entities.Models.UserModel", b =>
@@ -257,7 +259,7 @@ namespace MyPortfolioAPI.Migrations
 
                     b.HasIndex("OwnerId");
 
-                    b.ToTable("WorkExperiesnces", (string)null);
+                    b.ToTable("WorkExperiesnces");
                 });
 
             modelBuilder.Entity("Entities.SystemModels.EmailModel", b =>
@@ -267,6 +269,7 @@ namespace MyPortfolioAPI.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ChangeOrResetUserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedDate")
@@ -286,12 +289,15 @@ namespace MyPortfolioAPI.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Message")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NewUserActivationToken")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ResponseMessage")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("Sentdate")
@@ -301,6 +307,7 @@ namespace MyPortfolioAPI.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Subject")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<byte[]>("Timestamp")
@@ -313,13 +320,14 @@ namespace MyPortfolioAPI.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("EmailLogs", (string)null);
+                    b.ToTable("EmailLogs");
                 });
 
             modelBuilder.Entity("Entities.SystemModels.EmailTemplateModel", b =>
@@ -358,7 +366,7 @@ namespace MyPortfolioAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("EmailTemplates", (string)null);
+                    b.ToTable("EmailTemplates");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -529,7 +537,9 @@ namespace MyPortfolioAPI.Migrations
                 {
                     b.HasOne("Entities.Models.UserModel", "User")
                         .WithMany("Emails")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });

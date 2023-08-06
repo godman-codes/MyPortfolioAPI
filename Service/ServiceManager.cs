@@ -16,6 +16,8 @@ namespace Service
         private readonly Lazy<ITechnologyService> _technologyService;
         private readonly Lazy<IWorkExperienceService> _workExperienceService;
         private readonly Lazy<IAuthenticationService> _authenticationService;
+        private readonly Lazy<IEmailService> _emailService;
+        //private readonly Lazy<IEmailTemplateService> _emailTemplateService;
 
         public ServiceManager(
             IRepositoryManager repositoryManager,
@@ -30,7 +32,9 @@ namespace Service
             _projectService = new Lazy<IProjectService>(() => new ProjectService(repositoryManager, loggerManager, mapper));
             _technologyService = new Lazy<ITechnologyService>(() => new TechnologyService(repositoryManager, loggerManager, mapper));
             _workExperienceService = new Lazy<IWorkExperienceService>(() => new WorkExperienceService(repositoryManager, loggerManager, mapper));
-            _authenticationService = new Lazy<IAuthenticationService>(() => new AuthenticationService(loggerManager, mapper,userManager,configuration, roleManager));
+            _authenticationService = new Lazy<IAuthenticationService>(() => new AuthenticationService(loggerManager, mapper,userManager,configuration, roleManager, repositoryManager));
+            _emailService = new Lazy<IEmailService>(() => new EmailService(repositoryManager));
+            //_emailTemplateService = new Lazy<IEmailTemplateService>(() => new EmailTemplateService(repositoryManager));
         }
         public IProjectService ProjectService => _projectService.Value;
 
@@ -40,5 +44,9 @@ namespace Service
 
 
         public IAuthenticationService AuthenticationService => _authenticationService.Value;
+
+        public IEmailService EmailService => _emailService.Value;
+
+        //public IEmailTemplateService EmailTemplateService => _emailTemplateService.Value;
     }
 }

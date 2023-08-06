@@ -4,6 +4,7 @@ using Contracts;
 using Entities.ConfigurationModels;
 using Entities.Exceptions;
 using Entities.Models;
+using Entities.SystemModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -15,6 +16,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using Utilities.Constants;
+using Utilities.Enum;
 
 namespace Service
 {
@@ -23,10 +25,13 @@ namespace Service
         private readonly ILoggerManager _logger;
         private readonly UserManager<UserModel> _userManager;
         private readonly JwtConfiguration _jwtConfiguration;
+        private readonly IRepositoryManager _repository;
         private readonly IMapper _mapper;
         private readonly IOptions<JwtConfiguration> _configuration;
         private readonly RoleManager<IdentityRole> _roleManager;
+
         private UserModel? _user;
+
 
 
         public AuthenticationService(
@@ -34,7 +39,8 @@ namespace Service
             IMapper mapper,
             UserManager<UserModel> userManager,
             IOptions<JwtConfiguration> configuration,
-            RoleManager<IdentityRole> roleManager
+            RoleManager<IdentityRole> roleManager,
+            IRepositoryManager repository
             )
         {
             _logger = logger;
@@ -43,6 +49,7 @@ namespace Service
             _configuration = configuration;
             _roleManager = roleManager;
             _jwtConfiguration = _configuration.Value;
+            _repository = repository;
 
             
         }
@@ -51,6 +58,17 @@ namespace Service
         public async Task<IdentityResult> RegisterUser(UserForRegistrationDto userForRegistration)
         {
             var user = _mapper.Map<UserModel>(userForRegistration);
+            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            _repository.EmailRepository.CreateEmailLog(
+                new EmailModel()
+                {
+                    Id = Guid.NewGuid(),
+                    Emailaddresses = user.Email,
+                    EmailType = EmailTypeEnums.AccountActivation,
+                    Status = MessageStatusEnums.Pending,
+                    UserId = user.Id,
+                    NewUserActivationToken = code
+                });
 
             var result = await _userManager.CreateAsync(user, userForRegistration.Password);
 
@@ -63,7 +81,9 @@ namespace Service
 
                 // Add user to the roles and user join table
                 await _userManager.AddToRolesAsync(user, validRoles);
+
             }
+
             return result;
         }
 
@@ -215,6 +235,12 @@ namespace Service
 
             // Return the principal extracted from the token
             return principal;
+        }
+
+        public async Task<string> GetEmailConfirmationToken(UserModel user)
+        {
+            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            return code;
         }
     }
 }

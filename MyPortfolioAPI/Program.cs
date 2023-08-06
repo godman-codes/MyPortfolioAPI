@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using MyPortfolioAPI.Extensions;
 using MyPortfolioAPI.Presentation.ActionFilters;
 using NLog;
+using Utilities.Constants;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,7 +17,6 @@ builder.Services.ConfigureCors();
 
 // Configure IIS Integration.
 builder.Services.ConfigureIISIntegration();
-
 // add the ilogger service extension method 
 builder.Services.ConfigureLoggerService();
 
@@ -33,6 +33,7 @@ builder.Services.ConfigureServiceManager();
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddScoped<ValidationFilterAttribute>();
 
+
 // configure identity user
 builder.Services.AddAuthentication();
 // identity
@@ -42,7 +43,8 @@ builder.Services.ConfigureJWT(builder.Configuration);
 
 // IOptions
 builder.Services.AddJwtConfiguration(builder.Configuration);
-
+builder.Services.AddSMTPConfigurations(builder.Configuration);
+builder.Services.ConfigureHosting();
 builder.Services.Configure<ApiBehaviorOptions>(options =>
 {
     options.SuppressModelStateInvalidFilter = true;
@@ -64,6 +66,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.ConfigureSwagger();
 
 var app = builder.Build();
+
+
+AppDomain.CurrentDomain.SetData(Constants.WebRootPath, app.Environment.WebRootPath);
+
 
 // This must be done before the builder.Build method.
 // Reference UACWA pg 72.

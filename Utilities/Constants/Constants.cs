@@ -8,6 +8,27 @@ namespace Utilities.Constants
 {
     public static class Constants
     {
+        public const char Dot = '.';
+        public const string Empty = "";
+        public const string And = "and";
+        public const string To = "to";
+        public const string Comma = ",";
+        public const string CommaSpace = ", ";
+        public const string Space = " ";
+        public const string Underscore = "_";
+        public const string BackSlash = "/";
+        public const string ForwardSlash = "\\";
+        public const string NumberTo2DecimalPlaces = "N";
+        public const string MoneyFormat = "0,0.00";
+        public const string DateFormatForIdGeneration = "yyyyMMdd";
+        public const string DateFormatMMMddyyyy = "MMMddyyyy";
+        public const string DateFormatMMMddyyyyhhmm = "MMMddyyyyhhmm";
+        public const string DisplayDateFormatMMMddyyyy = "MMM dd, yyyy";
+        public const string DisplayMMMyyyy = "MMM, yyyy";
+        public const string Displayyyyy = "yyyy";
+        public const string NewLine = "\n";
+
+
         public const string Account = "Account";
         public const string Token = "Token";
         public const string Secret = "SECRET";
@@ -35,5 +56,7 @@ namespace Utilities.Constants
         public const string NotFoundSentence = "the {0} with id : {1} dosent't exist";
         public const string ResouceWithProperyExist = "{0} with specified {1} already exists";
 
+        public const string ToPersonanized = "To Personanized this template, Use the following \n ";
+        public const string WebRootPath = "WebRootPath";
     }
 }

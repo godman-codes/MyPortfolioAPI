@@ -12,5 +12,7 @@ namespace Service.Contracts
         ITechnologyService TechnologyService { get; }
         IWorkExperienceService WorkExperienceService { get; }
         IAuthenticationService AuthenticationService { get; }
+        IEmailService EmailService { get;  }
+        //IEmailTemplateService EmailTemplateService { get; }
     }
 }

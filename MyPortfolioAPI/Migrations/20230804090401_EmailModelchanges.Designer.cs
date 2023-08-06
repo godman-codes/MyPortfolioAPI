@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repository;
 
@@ -11,9 +12,10 @@ using Repository;
 namespace MyPortfolioAPI.Migrations
 {
     [DbContext(typeof(MyProjectDbContext))]
-    partial class MyProjectDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230804090401_EmailModelchanges")]
+    partial class EmailModelchanges
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -76,7 +78,7 @@ namespace MyPortfolioAPI.Migrations
 
                     b.HasIndex("OwnerId");
 
-                    b.ToTable("Projects", (string)null);
+                    b.ToTable("Projects");
                 });
 
             modelBuilder.Entity("Entities.Models.TechnologiesModel", b =>
@@ -115,7 +117,7 @@ namespace MyPortfolioAPI.Migrations
 
                     b.HasIndex("OwnerId");
 
-                    b.ToTable("Technologies", (string)null);
+                    b.ToTable("Technologies");
                 });
 
             modelBuilder.Entity("Entities.Models.UserModel", b =>
@@ -257,7 +259,7 @@ namespace MyPortfolioAPI.Migrations
 
                     b.HasIndex("OwnerId");
 
-                    b.ToTable("WorkExperiesnces", (string)null);
+                    b.ToTable("WorkExperiesnces");
                 });
 
             modelBuilder.Entity("Entities.SystemModels.EmailModel", b =>
@@ -286,12 +288,14 @@ namespace MyPortfolioAPI.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Message")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NewUserActivationToken")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ResponseMessage")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("Sentdate")
@@ -301,6 +305,7 @@ namespace MyPortfolioAPI.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Subject")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<byte[]>("Timestamp")
@@ -319,7 +324,7 @@ namespace MyPortfolioAPI.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("EmailLogs", (string)null);
+                    b.ToTable("EmailLogs");
                 });
 
             modelBuilder.Entity("Entities.SystemModels.EmailTemplateModel", b =>
@@ -358,7 +363,7 @@ namespace MyPortfolioAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("EmailTemplates", (string)null);
+                    b.ToTable("EmailTemplates");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

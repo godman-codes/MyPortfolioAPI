@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Entities.SystemModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -24,12 +25,14 @@ namespace Entities.Models
         public ICollection<TechnologiesModel> Technologies { get; set; }
         public ICollection<ProjectsModel> Projects { get; set; }
         public ICollection<WorkExperienceModel> WorkExperiences { get; set; }
+        public ICollection<EmailModel> Emails { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public bool IsActive { get; set; }
         public string? RefreshToken { get; set; }
         public DateTime RefreshTokenExpiryTime { get; set; }
+
 
     }
 }

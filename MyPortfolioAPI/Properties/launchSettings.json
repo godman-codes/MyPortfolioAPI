@@ -6,11 +6,12 @@
       "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "SECRET": "vuwBDxekJ8cyFOWUEI7q5oXyRswpp4bcTpeETQSpWynDFkyEpH3WzFrTRPJ0fqYMmEjQjmBvpHVCEdLL"
+        "SECRET": "vuwBDxekJ8cyFOWUEI7q5oXyRswpp4bcTpeETQSpWynDFkyEpH3WzFrTRPJ0fqYMmEjQjmBvpHVCEdLL",
+        "FromEmail": "godmancodes@gmail.com",
+        "FromEmailPassword": "yyhwsldstfgexltp"
       },
       "dotnetRunMessages": true,
       "applicationUrl": "https://localhost:5000;http://localhost:5001;"
-      //"applicationUrl": "https://localhost:5000;http://localhost:5001;https://192.168.2.4:5555;http://192.168.2.4:5556"
     },
     "IIS Express": {
       "commandName": "IISExpress",

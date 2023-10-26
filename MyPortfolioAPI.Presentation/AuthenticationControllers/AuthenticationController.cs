@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using MyPortfolioAPI.Presentation.ActionFilters;
 using Service.Contracts;
 using Shared.DTOs.Request;
+using Shared.DTOs.Response;
 using Utilities.Constants;
 
 namespace MyPortfolioAPI.Presentation.AuthenticationController
@@ -33,7 +34,8 @@ namespace MyPortfolioAPI.Presentation.AuthenticationController
                 }
                 return BadRequest(ModelState);
             }
-            return StatusCode(201);
+            NewUserDto _ = new() { message = Constants.NewAccountMessage };
+            return Ok(_);
         }
 
         [HttpPost("login")]

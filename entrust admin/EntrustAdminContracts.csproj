@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>entrust_admin</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="IdentityGuardAdminServiceV11API">
+      <HintPath>..\..\..\lib\IdentityGuardAdminServiceV11API.dll</HintPath>
+    </Reference>
+    <Reference Include="IdentityGuardAdminServiceV11API.XmlSerializers">
+      <HintPath>..\..\..\lib\IdentityGuardAdminServiceV11API.XmlSerializers.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

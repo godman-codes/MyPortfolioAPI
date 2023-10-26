@@ -3,9 +3,45 @@ using Microsoft.AspNetCore.Mvc;
 using MyPortfolioAPI.Extensions;
 using MyPortfolioAPI.Presentation.ActionFilters;
 using NLog;
+using System.Reflection;
 using Utilities.Constants;
 
 var builder = WebApplication.CreateBuilder(args);
+
+//// Subscribe to the AssemblyResolve event for custom assembly loading.
+//AppDomain.CurrentDomain.AssemblyResolve += (sender, e) =>
+//{
+//    var location = AppDomain.CurrentDomain.BaseDirectory;
+//    // Specify the directory where external assemblies are located.
+//    string assemblyDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "EntrustAssemblies");
+
+//    // Attempt to load the assembly from the specified directory.
+//    string assemblyPath = Path.Combine(assemblyDir, new AssemblyName(e.Name).Name + ".dll");
+//    if (File.Exists(assemblyPath))
+//    {
+//        return Assembly.LoadFile(assemblyPath);
+//    }
+
+//    // If the assembly is not found in the specified directory, return null to allow the default resolution process.
+//    return null;
+//};
+
+//// Load multiple assemblies from a folder.
+//string externalAssembliesDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "EntrustAssemblies");
+//if (Directory.Exists(externalAssembliesDir))
+//{
+//    foreach (var assemblyFile in Directory.GetFiles(externalAssembliesDir, "*.dll"))
+//    {
+//        try
+//        {
+//            Assembly.LoadFile(assemblyFile);
+//        }
+//        catch (Exception ex)
+//        {
+//            Console.WriteLine(ex);
+//        }
+//    }
+//}
 
 // Add services to the container.
 
@@ -28,7 +64,7 @@ builder.Services.ConfigureRepositoryManager();
 
 // configure service manager
 builder.Services.ConfigureServiceManager();
-
+builder.Services.ConfigureEntrustManager();
 // adding automapper
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddScoped<ValidationFilterAttribute>();

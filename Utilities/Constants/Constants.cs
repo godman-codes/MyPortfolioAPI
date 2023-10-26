@@ -58,6 +58,7 @@ namespace Utilities.Constants
         public const string ResouceWithProperyExist = "{0} with specified {1} already exists";
         public const string AccountActivationErrorMessage = "Account activation unsuccessfull";
         public const string AccountActivationMessage = "Account activation successfull";
+        public const string NewAccountMessage = "Activation mail sent please activate account before next login";
 
         public const string ToPersonanized = "To Personanized this template, Use the following \n ";
         public const string WebRootPath = "WebRootPath";

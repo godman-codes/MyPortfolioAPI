@@ -13,6 +13,8 @@ using Microsoft.OpenApi.Models;
 using Contracts;
 using Entities.SystemModels;
 using Service.BackgroundServices;
+using EntrustContracts;
+using EntrustServices;
 
 namespace MyPortfolioAPI.Extensions
 {
@@ -76,6 +78,11 @@ namespace MyPortfolioAPI.Extensions
         public static void ConfigureServiceManager(this IServiceCollection services)
         {
             services.AddScoped<IServiceManager, ServiceManager>();
+        }
+
+        public static void ConfigureEntrustManager(this IServiceCollection services)
+        {
+            services.AddScoped<IEntrustManager, EntrustManager>();
         }
 
         /// <summary>

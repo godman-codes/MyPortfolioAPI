@@ -14,6 +14,8 @@ namespace Shared.DTOs.Request
         public string? Email { get; init; }
         [Required(ErrorMessage = "Password is required")]
         public string? Password { get; init; }
+        [Required(ErrorMessage = "Authenticator Token is required")]
+        public string? MFAToken { get; init; }
 
     }
 }

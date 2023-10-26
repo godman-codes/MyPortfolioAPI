@@ -5,6 +5,7 @@ using Entities.ConfigurationModels;
 using Entities.Exceptions;
 using Entities.Models;
 using Entities.SystemModels;
+using EntrustContracts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -29,6 +30,7 @@ namespace Service
         private readonly IMapper _mapper;
         private readonly IOptions<JwtConfiguration> _configuration;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IEntrustManager _entrustManager;
 
         private UserModel? _user;
 
@@ -40,7 +42,8 @@ namespace Service
             UserManager<UserModel> userManager,
             IOptions<JwtConfiguration> configuration,
             RoleManager<IdentityRole> roleManager,
-            IRepositoryManager repository
+            IRepositoryManager repository,
+            IEntrustManager entrustManager
             )
         {
             _logger = logger;
@@ -50,7 +53,7 @@ namespace Service
             _roleManager = roleManager;
             _jwtConfiguration = _configuration.Value;
             _repository = repository;
-
+            _entrustManager = entrustManager;
             
         }
 
@@ -91,11 +94,21 @@ namespace Service
         {
             _user = await _userManager.FindByEmailAsync(userForAuth.Email);
 
+
             var result = (_user != null && await _userManager.CheckPasswordAsync(_user, userForAuth.Password));
 
+
             if (!result)
+            {
                 _logger.LogWarn($"{nameof(ValidateUser)}: Authentication failed invalid credentails");
-            return result;
+                return result;
+            }
+            var MFAEntrust = await _entrustManager.EntrustAuthService.DoAuthenticateGenericChallengeAync(_user.FirstName, userForAuth.MFAToken);
+            if (!MFAEntrust)
+            {
+                return MFAEntrust;
+            }
+            return MFAEntrust;
         }
         public async Task<TokenDto> CreateToken(bool populateExp)
         {

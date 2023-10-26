@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="IdentityGuardAdminServiceV12API">
+      <HintPath>..\EntrustAssemblies\IdentityGuardAdminServiceV12API.dll</HintPath>
+    </Reference>
+    <Reference Include="IdentityGuardAdminServiceV12API.XmlSerializers">
+      <HintPath>..\EntrustAssemblies\IdentityGuardAdminServiceV12API.XmlSerializers.dll</HintPath>
+    </Reference>
+    <Reference Include="IdentityGuardAuthServiceV12API">
+      <HintPath>..\EntrustAssemblies\IdentityGuardAuthServiceV12API.dll</HintPath>
+    </Reference>
+    <Reference Include="IdentityGuardAuthServiceV12API.XmlSerializers">
+      <HintPath>..\EntrustAssemblies\IdentityGuardAuthServiceV12API.XmlSerializers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Services">
+      <HintPath>..\system.web.services\System.Web.Services.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+
+</Project>

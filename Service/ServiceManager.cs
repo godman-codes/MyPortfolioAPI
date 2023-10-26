@@ -4,6 +4,7 @@ using AutoMapper;
 using Contracts;
 using Entities.ConfigurationModels;
 using Entities.Models;
+using EntrustContracts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Service.Contracts;
@@ -17,6 +18,7 @@ namespace Service
         private readonly Lazy<IWorkExperienceService> _workExperienceService;
         private readonly Lazy<IAuthenticationService> _authenticationService;
         private readonly Lazy<IEmailService> _emailService;
+
         //private readonly Lazy<IEmailTemplateService> _emailTemplateService;
 
         public ServiceManager(
@@ -25,14 +27,15 @@ namespace Service
             UserManager<UserModel> userManager,
             RoleManager<IdentityRole> roleManager,
             IOptions<JwtConfiguration> configuration,
-            IMapper mapper
+            IMapper mapper,
+            IEntrustManager entrustManager
 
             )
         {
             _projectService = new Lazy<IProjectService>(() => new ProjectService(repositoryManager, loggerManager, mapper));
             _technologyService = new Lazy<ITechnologyService>(() => new TechnologyService(repositoryManager, loggerManager, mapper));
             _workExperienceService = new Lazy<IWorkExperienceService>(() => new WorkExperienceService(repositoryManager, loggerManager, mapper));
-            _authenticationService = new Lazy<IAuthenticationService>(() => new AuthenticationService(loggerManager, mapper,userManager,configuration, roleManager, repositoryManager));
+            _authenticationService = new Lazy<IAuthenticationService>(() => new AuthenticationService(loggerManager, mapper,userManager,configuration, roleManager, repositoryManager, entrustManager));
             _emailService = new Lazy<IEmailService>(() => new EmailService(repositoryManager));
             //_emailTemplateService = new Lazy<IEmailTemplateService>(() => new EmailTemplateService(repositoryManager));
         }

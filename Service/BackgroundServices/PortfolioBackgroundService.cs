@@ -32,23 +32,23 @@ namespace Service.BackgroundServices
         }
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            try
-            {
-                while (!stoppingToken.IsCancellationRequested)
-                {
-                    using IServiceScope scope = _serviceScopeFactory.CreateScope();
-                    IServiceProvider servicesProvider = scope.ServiceProvider;
-                    MyProjectDbContext context = servicesProvider.GetService<MyProjectDbContext>();
+            //try
+            //{
+            //    while (!stoppingToken.IsCancellationRequested)
+            //    {
+            //        using IServiceScope scope = _serviceScopeFactory.CreateScope();
+            //        IServiceProvider servicesProvider = scope.ServiceProvider;
+            //        MyProjectDbContext context = servicesProvider.GetService<MyProjectDbContext>();
 
-                    await SendEmailsInBatches(context);
-                    await Task.Delay(50000, stoppingToken);
-                }
-            }
-            catch (Exception ex )
-            {
+            //        await SendEmailsInBatches(context);
+            //        await Task.Delay(50000, stoppingToken);
+            //    }
+            //}
+            //catch (Exception ex )
+            //{
 
-                _logger.LogError(ex.Message);
-            }
+            //    _logger.LogError(ex.Message);
+            //}
         }
 
         private async Task SendEmailsInBatches(MyProjectDbContext context)

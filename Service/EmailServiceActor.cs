@@ -279,40 +279,31 @@ namespace Service
                 };
 
 
-                WebClient webClient = new WebClient();
-                try
+                using (var client = new MailKit.Net.Smtp.SmtpClient())
                 {
-
-                    using (var client = new MailKit.Net.Smtp.SmtpClient())
-                    {
-                        //client.EnableSsl = sMTP.SSLStatus;
-                        //client.Host = sMTP.HostServer;
-                        //client.Port = sMTP.HostPort;
-                        //client.DeliveryMethod = SmtpDeliveryMethod.Network;
-                        //client.UseDefaultCredentials = true;
-                        //client.Credentials = new NetworkCredential(sMTP.FromEmail, sMTP.FromEmailPassword);
-                        client.Connect(sMTP.HostServer, sMTP.HostPort, SecureSocketOptions.StartTls);
-                        client.Authenticate(sMTP.FromEmail, sMTP.FromEmailPassword);
-                        var sentConfirmation = await client.SendAsync(mail);
+                    //client.EnableSsl = sMTP.SSLStatus;
+                    //client.Host = sMTP.HostServer;
+                    //client.Port = sMTP.HostPort;
+                    //client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                    //client.UseDefaultCredentials = true;
+                    //client.Credentials = new NetworkCredential(sMTP.FromEmail, sMTP.FromEmailPassword);
+                    client.Connect(sMTP.HostServer, sMTP.HostPort, SecureSocketOptions.StartTls);
+                    client.Authenticate(sMTP.FromEmail, sMTP.FromEmailPassword);
+                    var sentConfirmation = await client.SendAsync(mail);
                     
-                        if (confirmedEmails.Count() == splittedEmails.Count())
-                        {
-                            pendingEmail.Status = MessageStatusEnums.Sent;
-                            pendingEmail.Sentdate = DateTime.Now;
-                            pendingEmail.ResponseMessage = sentConfirmation;
-                        }
-                        else
-                        {
-                            pendingEmail.Status = MessageStatusEnums.SentPartially;
-                            pendingEmail.ResponseMessage = "Unable to send to these emails: " + string.Join(",", unConfirmedEmails) + ". Either Email(s) does not exist or their respective domain(s) has expired";
-                            pendingEmail.Sentdate = DateTime.Now;
-                            pendingEmail.FailedDate = DateTime.Now;
-                        }
+                    if (confirmedEmails.Count() == splittedEmails.Count())
+                    {
+                        pendingEmail.Status = MessageStatusEnums.Sent;
+                        pendingEmail.Sentdate = DateTime.Now;
+                        pendingEmail.ResponseMessage = sentConfirmation;
                     }
-                }
-                catch (Exception ex)
-                {
-                    pendingEmail.ResponseMessage = ex.Message;
+                    else
+                    {
+                        pendingEmail.Status = MessageStatusEnums.SentPartially;
+                        pendingEmail.ResponseMessage = "Unable to send to these emails: " + string.Join(",", unConfirmedEmails) + ". Either Email(s) does not exist or their respective domain(s) has expired";
+                        pendingEmail.Sentdate = DateTime.Now;
+                        pendingEmail.FailedDate = DateTime.Now;
+                    }
                 }
 
 

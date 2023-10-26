@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>EntrustAuth</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="IdentityGuardAuthServiceV11API">
+      <HintPath>..\..\..\lib\IdentityGuardAuthServiceV11API.dll</HintPath>
+    </Reference>
+    <Reference Include="IdentityGuardAuthServiceV11API.XmlSerializers">
+      <HintPath>..\..\..\lib\IdentityGuardAuthServiceV11API.XmlSerializers.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

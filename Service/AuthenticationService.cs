@@ -12,7 +12,9 @@ using Microsoft.IdentityModel.Tokens;
 using Service.Contracts;
 using Shared.DTOs;
 using Shared.DTOs.Request;
+using Shared.DTOs.Response;
 using System.IdentityModel.Tokens.Jwt;
+using System.Reflection.Metadata.Ecma335;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
@@ -90,25 +92,58 @@ namespace Service
             return result;
         }
 
-        public async Task<bool> ValidateUser(UserForAuthenticationDto userForAuth)
+        public async Task<LoggedInUserResponseDto> ValidateUser(UserForAuthenticationDto userForAuth)
         {
+           
             _user = await _userManager.FindByEmailAsync(userForAuth.Email);
 
-
-            var result = (_user != null && await _userManager.CheckPasswordAsync(_user, userForAuth.Password));
-
-
-            if (!result)
+            if (_user == null)
             {
-                _logger.LogWarn($"{nameof(ValidateUser)}: Authentication failed invalid credentails");
-                return result;
+                throw new InvalidCredentialsException();
             }
-            var MFAEntrust = await _entrustManager.EntrustAuthService.DoAuthenticateGenericChallengeAync(_user.FirstName, userForAuth.MFAToken);
-            if (!MFAEntrust)
+
+            if (!await _userManager.CheckPasswordAsync(_user, userForAuth.Password))
             {
-                return MFAEntrust;
+                throw new InvalidCredentialsException();
             }
-            return MFAEntrust;
+
+            if (!_user.IsActive)
+            {
+                throw new ActivateUserException();
+            }
+
+            var MFAEntrust = await _entrustManager.EntrustAuthService.MakeGenericChallengeAsync(_user.Id);
+            if (MFAEntrust)
+            {
+                return new LoggedInUserResponseDto()
+                {
+                    ActivatedUser = true,
+                    UserId = _user.Id,
+                    Authenticated = true,
+                    EntrustUser = true,
+                };
+            } else
+            { 
+                return new LoggedInUserResponseDto()
+                {
+                    ActivatedUser = true,
+                    UserId = _user.Id,
+                    Authenticated = true,
+                    EntrustUser = false,
+                };
+            }
+        }
+
+        public async Task<bool> ValidateMFA(LoggedInUserResponseDto loggedInUserResponse, string token)
+        {
+            _user = await _userManager.FindByIdAsync(loggedInUserResponse.UserId);
+
+            if (!await _entrustManager.EntrustAuthService.DoAuthenticateGenericChallengeAync(loggedInUserResponse.UserId, token))
+            {
+                return false;
+            }
+            return true;
+
         }
         public async Task<TokenDto> CreateToken(bool populateExp)
         {
@@ -267,5 +302,7 @@ namespace Service
             var result = await _userManager.ConfirmEmailAsync(user, accountActivation.token);
             return result;
         }
+
+       
     }
 }

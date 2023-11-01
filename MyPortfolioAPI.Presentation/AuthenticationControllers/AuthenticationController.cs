@@ -44,11 +44,18 @@ namespace MyPortfolioAPI.Presentation.AuthenticationController
         [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> Authenticate([FromBody] UserForAuthenticationDto user)
         {
-            if (!await _service.AuthenticationService.ValidateUser(user))
-                return Unauthorized();
-            var tokenDto = await _service.AuthenticationService.CreateToken(populateExp: true);
-            return Ok(tokenDto);
+            var userResponse = await _service.AuthenticationService.ValidateUser(user);
+
+            return Ok(userResponse);
         }
+
+        //public async Task<IActionResult> AuthenticateMFA([FromBody] LoggedInUserResponseDto loggedInUserResponse, string token)
+        //{
+        //    var authenticated = await _
+        //}
+
+
+
 
         [HttpPost("ActivateAccount")]
         [ServiceFilter(typeof(ValidationFilterAttribute))]

@@ -27,6 +27,9 @@ namespace MyPortfolioAPI.Extensions
                             // Use the switch statement to return the appropriate error status code
                             NotFoundException => StatusCodes.Status404NotFound,
                             BadRequestException => StatusCodes.Status400BadRequest,
+                            InvalidCredentialsException => StatusCodes.Status401Unauthorized,
+                            ActivateUserException => StatusCodes.Status406NotAcceptable,
+
                             _ => StatusCodes.Status500InternalServerError
                         };
 

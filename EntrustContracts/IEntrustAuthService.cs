@@ -9,7 +9,7 @@ namespace EntrustContracts
 {
     public interface IEntrustAuthService
     {
-        Task MakeGenericChallengeAsync(string userId);
+        Task<bool> MakeGenericChallengeAsync(string userId);
         Task<bool> DoAuthenticateGenericChallengeAync(string userId, string otp);
     }
 

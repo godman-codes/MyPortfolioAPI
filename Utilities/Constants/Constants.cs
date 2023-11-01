@@ -62,5 +62,11 @@ namespace Utilities.Constants
 
         public const string ToPersonanized = "To Personanized this template, Use the following \n ";
         public const string WebRootPath = "WebRootPath";
+        public const string InvalidCredentials = "Invalid Credentials";
+        public const string UserNotActivated = "This user is not activated please activate";
+        public const string NotEntrustUser = "This user MFA hasnt been activated please activate";
+        public const string EntrustGeneralError = "Something went wrong with entrust";
+        public const string EntrustConnectionError = "Unable to connect to Entrust";
+        public const string EntrustBlockedUser = "This User is blocked by entrust";
     }
 }

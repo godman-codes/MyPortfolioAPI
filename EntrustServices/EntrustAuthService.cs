@@ -1,9 +1,14 @@
 ﻿using Contracts;
+using Entities.Exceptions;
 using EntrustContracts;
 using EntrustIdentityGuard;
 using System.Net;
 using System.Net.Http.Headers;
+using System.Runtime.CompilerServices;
+using System.ServiceModel;
+using System.Text.RegularExpressions;
 using System.Web.Services.Protocols;
+using Utilities.Constants;
 
 namespace EntrustServices
 {
@@ -159,32 +164,42 @@ namespace EntrustServices
             try
             {
 
-            authenticateGenericChallengeResponse authResponse = await _authenticationService.authenticateGenericChallengeAsync(authRequest);
+                authenticateGenericChallengeResponse authResponse = await _authenticationService.authenticateGenericChallengeAsync(authRequest);
 
-            GenericAuthenticateResponse authReturn = authResponse.authenticateGenericChallengeReturn;
+                GenericAuthenticateResponse authReturn = authResponse.authenticateGenericChallengeReturn;
 
-            if (authReturn.FullName != null)
-            {
                 return true;
             }
-                return false;
-            }
-            catch (Exception ex)
+
+            catch (FaultException<AuthenticationFaultInfo> ex)
+            {
+                switch(ex.Detail.ErrorCode)
+                {
+                    case ErrorCode.INVALID_RESPONSE:
+                        _logger.LogError(ex.Detail.errorMessage);
+                        return false;
+                    case ErrorCode.USER_SUSPENDED:
+                        _logger.LogError(ex.Detail.errorMessage);
+                        throw new EntrustException(Constants.EntrustBlockedUser);
+                    case ErrorCode.USER_DOES_NOT_EXIST:
+                        _logger.LogError(ex.Detail.errorMessage);
+                        throw new EntrustException(Constants.UserNotActivated);
+                    default:
+                        _logger.LogError(ex.Detail.errorMessage);
+                        throw new EntrustException(Constants.EntrustGeneralError);
+                } 
+            } catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return false;
+                throw new EntrustException(Constants.EntrustConnectionError);
             }
+                
 
         }
 
-        //public Task<bool> DoAuthenticateGenericChallengeAync(string userId, string otp)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        public async Task MakeGenericChallengeAsync(string userId)
+        public async Task<bool> MakeGenericChallengeAsync(string userId)
         {
-            GenericChallengeParms genericChallengeParms =  new GenericChallengeParms()
+            GenericChallengeParms genericChallengeParms = new GenericChallengeParms()
             {
                 AuthenticationType = AuthenticationType.TOKENRO,
                 SecurityLevel = SecurityLevel.NORMAL
@@ -200,15 +215,40 @@ namespace EntrustServices
             {
                 getGenericChallengeCallParms = getGenericChallengeCallParms
             };
+            
+            try
+            {
 
-            getGenericChallengeResponse _getGenericChallengeResponse = await _authenticationService.getGenericChallengeAsync(_getGenericChallengeRequest);
+                getGenericChallengeResponse _getGenericChallengeResponse = await _authenticationService.getGenericChallengeAsync(_getGenericChallengeRequest);
 
-            GenericChallenge challenge = _getGenericChallengeResponse.getGenericChallengeReturn;
-            Console.WriteLine(challenge.TokenChallenge);
+                GenericChallenge challenge = _getGenericChallengeResponse.getGenericChallengeReturn;
 
-        }
+                return true;
+            }
+            catch (FaultException<AuthenticationFaultInfo> ex)
+            {
+                 if (ex.Detail.ErrorCode == ErrorCode.USER_DOES_NOT_EXIST)
+                {
+                    
+                    _logger.LogError(ex.Detail.errorMessage);
+                    return false;
 
-       
+                }
+                else
+                {
+                    _logger.LogError(ex.Detail.errorMessage);
+                    throw new EntrustException(Constants.EntrustGeneralError);
+                    
+                }
+
+            }catch(Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                throw new EntrustException(Constants.EntrustConnectionError);
+            }
+
+            
+        }       
 
     }
 }

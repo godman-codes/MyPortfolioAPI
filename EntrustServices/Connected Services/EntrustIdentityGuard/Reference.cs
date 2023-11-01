@@ -7,6 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.Runtime.Serialization;
+using System.ServiceModel;
+
 namespace EntrustIdentityGuard
 {
     
@@ -41,6 +44,7 @@ namespace EntrustIdentityGuard
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:entrust.com:ig:authenticationV12:wsdl")]
+    [DataContract]
     public partial class AuthenticationFaultInfo
     {
         
@@ -56,6 +60,7 @@ namespace EntrustIdentityGuard
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
+        [DataMember]
         public ErrorCode ErrorCode
         {
             get
@@ -70,6 +75,7 @@ namespace EntrustIdentityGuard
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=1)]
+        [DataMember]
         public string InternalCode
         {
             get
@@ -84,6 +90,7 @@ namespace EntrustIdentityGuard
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=2)]
+        [DataMember]
         public string errorMessage
         {
             get
@@ -98,6 +105,7 @@ namespace EntrustIdentityGuard
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=3)]
+        [DataMember]
         public string id
         {
             get
@@ -112,6 +120,8 @@ namespace EntrustIdentityGuard
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("Params", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=true, Order=4)]
+        [DataMember]
+
         public string[] Params
         {
             get
@@ -123,8 +133,105 @@ namespace EntrustIdentityGuard
                 this.paramsField = value;
             }
         }
+
+        //public static implicit operator AuthenticationFaultInfo(FaultException v)
+        //{
+            
+        //}
     }
-    
+
+    /// <remarks/>
+    [DataContract]
+    public class CustomAuthenticationFaultInfo
+    {
+
+        private ErrorCode errorCodeField;
+
+        private string internalCodeField;
+
+        private string errorMessageField;
+
+        private string idField;
+
+        private string[] paramsField;
+
+        /// <remarks/>
+        [DataMember]
+        public ErrorCode ErrorCode
+        {
+            get
+            {
+                return this.errorCodeField;
+            }
+            set
+            {
+                this.errorCodeField = value;
+            }
+        }
+
+        /// <remarks/>
+        [DataMember]
+        public string InternalCode
+        {
+            get
+            {
+                return this.internalCodeField;
+            }
+            set
+            {
+                this.internalCodeField = value;
+            }
+        }
+
+        /// <remarks/>
+        [DataMember]
+        public string errorMessage
+        {
+            get
+            {
+                return this.errorMessageField;
+            }
+            set
+            {
+                this.errorMessageField = value;
+            }
+        }
+
+        /// <remarks/>
+        [DataMember]
+        public string id
+        {
+            get
+            {
+                return this.idField;
+            }
+            set
+            {
+                this.idField = value;
+            }
+        }
+
+        /// <remarks/>
+        [DataMember]
+
+        public string[] Params
+        {
+            get
+            {
+                return this.paramsField;
+            }
+            set
+            {
+                this.paramsField = value;
+            }
+        }
+
+       
+    }
+
+
+
+
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:entrust.com:ig:authenticationV12:wsdl")]

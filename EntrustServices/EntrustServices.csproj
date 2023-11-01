@@ -16,13 +16,15 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Contracts\Contracts.csproj" />
+    <ProjectReference Include="..\Entities\Entities.csproj" />
     <ProjectReference Include="..\EntrustContracts\EntrustContracts.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="System.Web.Services">
+    <Reference Include="System.Web.Services, Version=4.6.57.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <HintPath>..\system.web.services\System.Web.Services.dll</HintPath>
       <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
   </ItemGroup>
 
